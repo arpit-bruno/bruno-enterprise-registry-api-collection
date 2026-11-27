@@ -1,0 +1,24 @@
+info:
+  name: Registry is up
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/health/ready"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |
+  The registry answers and can reach its database.

@@ -1,0 +1,53 @@
+info:
+  name: Publish version 1.0.0
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/v1/artifacts/{{org}}/api-check-{{process.env.MY_NAME}}/versions/1.0.0"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "description": "first version",
+        "content": {
+          "opencollection": "1.0.0",
+          "info": {
+            "name": "API check"
+          },
+          "bundled": true,
+          "items": [
+            {
+              "info": {
+                "name": "ping",
+                "type": "http",
+                "seq": 1
+              },
+              "http": {
+                "method": "GET",
+                "url": "https://echo.usebruno.com"
+              }
+            }
+          ]
+        }
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+    - expression: res.body.version
+      operator: eq
+      value: "1.0.0"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

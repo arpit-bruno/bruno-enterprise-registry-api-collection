@@ -1,0 +1,8 @@
+name: Registry
+variables:
+  - name: baseUrl
+    value: "{{process.env.REGISTRY_URL}}"
+    description: The registry address, taken from your .env file
+  - name: org
+    value: acme
+    description: The organization handle

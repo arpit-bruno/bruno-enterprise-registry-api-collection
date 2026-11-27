@@ -1,0 +1,27 @@
+info:
+  name: Read version content
+  type: http
+  seq: 8
+
+http:
+  method: GET
+  url: "{{baseUrl}}/api/v1/artifacts/{{org}}/api-check-{{process.env.MY_NAME}}/versions/1.0.0/content"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.data.info.name
+      operator: eq
+      value: "API check"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |
+  The document comes back exactly as it was published.
