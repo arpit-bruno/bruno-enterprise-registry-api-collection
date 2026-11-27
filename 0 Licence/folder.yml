@@ -1,0 +1,6 @@
+info:
+  name: 0 Licence
+  type: folder
+  seq: 1
+request:
+  auth: inherit

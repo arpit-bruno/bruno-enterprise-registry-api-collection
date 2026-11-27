@@ -1,7 +1,6 @@
 info:
   name: 3 Collections
   type: folder
-  seq: 3
-
+  seq: 4
 request:
   auth: inherit

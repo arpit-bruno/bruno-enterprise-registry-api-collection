@@ -1,0 +1,37 @@
+info:
+  name: License Manager says it is valid
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{licenseManagerUrl}}/api/v2/license/verify"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "licenseToken": "{{licenseToken}}",
+        "deviceId": "{{deviceId}}"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+    - expression: res.body.verified
+      operator: eq
+      value: "true"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |
+  The same question the registry asks License Manager when you sign in.

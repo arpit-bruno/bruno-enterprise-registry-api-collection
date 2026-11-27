@@ -1,0 +1,45 @@
+info:
+  name: Get a licence token
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{licenseManagerUrl}}/api/v2/license/activate"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "email": "{{process.env.LICENSE_EMAIL}}",
+        "licenseKey": "{{process.env.LICENSE_KEY}}",
+        "deviceId": "{{deviceId}}",
+        "deviceName": "Registry API check"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.body.licenseToken
+      operator: isString
+  actions:
+    - type: set-variable
+      phase: after-response
+      selector:
+        expression: res.body.licenseToken
+        method: jsonq
+      variable:
+        name: licenseToken
+        scope: runtime
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |
+  Asks License Manager for a licence token, the way the Bruno app does when
+  you activate. The token is kept for the requests that follow.

@@ -2,7 +2,13 @@ name: Registry
 variables:
   - name: baseUrl
     value: "{{process.env.REGISTRY_URL}}"
-    description: The registry address, taken from your .env file
+    description: The registry address, from your .env file
+  - name: licenseManagerUrl
+    value: "{{process.env.LICENSE_MANAGER_URL}}"
+    description: The License Manager address, from your .env file
+  - name: deviceId
+    value: registry-api-check
+    description: The device this licence token is issued for
   - name: org
     value: acme
     description: The organization handle

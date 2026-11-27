@@ -13,7 +13,7 @@ http:
     type: json
     data: |
       {
-        "licenseToken": "{{process.env.LICENSE_TOKEN}}"
+        "licenseToken": "{{licenseToken}}"
       }
   auth: inherit
 
